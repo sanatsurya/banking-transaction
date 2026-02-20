@@ -1,3 +1,4 @@
+
 name: Publish Docker Image
 
 on:
@@ -16,7 +17,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository_owner }}/banking-transaction:latest
+        run: docker build -t ghcr.io/${{ github.repository_owner }}/banking-transaction:latest .
 
       - name: Push Docker image
         run: docker push ghcr.io/${{ github.repository_owner }}/banking-transaction:latest
