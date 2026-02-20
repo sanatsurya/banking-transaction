@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: sanat
+      changes:
+        - createTable:
+            tableName: bank_account
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: transaction_types
+                  type: VARCHAR(50)
+              - column:
+                  name: debited
+                  type: NUMERIC(19,2)
+              - column:
+                  name: credited
+                  type: NUMERIC(19,2)
+              - column:
+                  name: available_balance
+                  type: NUMERIC(19,2)
+
+  - changeSet:
+      id: 2
+      author: sanat
+      changes:
+        - insert:
+            tableName: bank_account
+            columns:
+              - column: { name: id, valueComputed: "gen_random_uuid()" }
+              - column: { name: customer_name, value: "Alice" }
+              - column: { name: transaction_types, value: "CREDIT" }
+              - column: { name: debited, valueNumeric: 0.00 }
+              - column: { name: credited, valueNumeric: 500.00 }
+              - column: { name: available_balance, valueNumeric: 500.00 }
+
+        - insert:
+            tableName: bank_account
+            columns:
+              - column: { name: id, valueComputed: "gen_random_uuid()" }
+              - column: { name: customer_name, value: "Bob" }
+              - column: { name: transaction_types, value: "DEBIT" }
+              - column: { name: debited, valueNumeric: 200.00 }
+              - column: { name: credited, valueNumeric: 0.00 }
+              - column: { name: available_balance, valueNumeric: 800.00 }
+
+        - insert:
+            tableName: bank_account
+            columns:
+              - column: { name: id, valueComputed: "gen_random_uuid()" }
+              - column: { name: customer_name, value: "Charlie" }
+              - column: { name: transaction_types, value: "CREDIT" }
+              - column: { name: debited, valueNumeric: 0.00 }
+              - column: { name: credited, valueNumeric: 1000.00 }
+              - column: { name: available_balance, valueNumeric: 1000.00 }
+
+        - insert:
+            tableName: bank_account
+            columns:
+              - column: { name: id, valueComputed: "gen_random_uuid()" }
+              - column: { name: customer_name, value: "Diana" }
+              - column: { name: transaction_types, value: "DEBIT" }
+              - column: { name: debited, valueNumeric: 300.00 }
+              - column: { name: credited, valueNumeric: 0.00 }
+              - column: { name: available_balance, valueNumeric: 700.00 }
+
+        - insert:
+            tableName: bank_account
+            columns:
+              - column: { name: id, valueComputed: "gen_random_uuid()" }
+              - column: { name: customer_name, value: "Eve" }
+              - column: { name: transaction_types, value: "CREDIT" }
+              - column: { name: debited, valueNumeric: 0.00 }
+              - column: { name: credited, valueNumeric: 250.00 }
+              - column: { name: available_balance, valueNumeric: 250.00 }

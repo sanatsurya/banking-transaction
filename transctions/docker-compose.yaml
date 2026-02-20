@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres
+    container_name: bank-db
+    environment:
+      POSTGRES_DB: bank
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bankpassword
+    ports:
+      - '5432:5432'
+    networks:
+      - banking-network
+    volumes:
+      - bank-db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bank"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  transactions:
+    build: .
+    container_name: transaction-server
+    networks:
+      - banking-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+volumes:
+  bank-db-data:
+
+networks:
+  banking-network:
